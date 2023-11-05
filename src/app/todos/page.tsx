@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma';
 import DoneTodo from './DoneTodo';
 import AddTodo from './AddTodo';
-import { deleteTodo, doneTodo } from './actions';
+import { deleteTodo } from './actions';
 
 const Page = async () => {
   const todos = await prisma.todo.findMany();
@@ -13,14 +13,9 @@ const Page = async () => {
         {todos.map((todo) => (
           <li
             key={todo.id}
-            className={`flex items-center space-x-2 ${todo.isCompleted ? 'line-through' : ''
-              }`}
+            className={`flex items-center space-x-2 ${todo.isCompleted ? 'line-through' : ''}`}
           >
-            <DoneTodo
-              id={todo.id}
-              isCompleted={todo.isCompleted}
-              doneTodo={doneTodo}
-            />
+            <DoneTodo id={todo.id} isCompleted={todo.isCompleted} />
             <span>{todo.name}</span>
             <form>
               <input type="hidden" name="id" value={todo.id} />
